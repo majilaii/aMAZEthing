@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         element: <Welcome />,
       },
       {
+        path: '/callback',
+        element: <Welcome />,
+      },
+      {
         path: '/game',
         element: <Game />,
       },

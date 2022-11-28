@@ -3,11 +3,13 @@ import { User} from "@auth0/auth0-react";
 import { useAppSelector } from '../features/hooks';
 import apiService from '../services/apiService';
 import { Buffer } from "buffer";
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshDataNoAvatar } from '../features/user_slice';
-
 function Profile() {
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const user  = useAppSelector((state)=>state.user);
   const [img, setImg] = useState()
@@ -15,26 +17,26 @@ function Profile() {
   useEffect(()=>{
     const base64String:any = Buffer.from(user.avatar.data.data).toString("base64");
     setImg(base64String);
-  },[]);
+  },[user]);
   
   function changeUsername(e:any){ //TODO if type is Event value is not recognized
     const { value } = e.target;
     setUsername(value);
   }
 
-  const dispatch = useDispatch();
   async function updateChanges(e:any){
     e.preventDefault();
-    console.log(username)
+    if (!isAuthenticated) return
+    console.log(username);
     try{
-    const obj = await apiService.updateUsername({username: username});
-    dispatch(refreshDataNoAvatar(obj.user));
+    const accessToken = await getAccessTokenSilently();
+    const obj = await apiService.updateUsername(accessToken, {email:user.email,username: username});
+    if(obj.user) dispatch(refreshDataNoAvatar(obj.user));
     }catch(err){
       console.log(err)
     }
-   
-    
   }
+
   return (
     <div>
       <div className='logo-img'>

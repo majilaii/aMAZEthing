@@ -1,32 +1,50 @@
-import Express from 'express';
-import { automateImages } from './utils/automateAvatars';
-import {auth} from 'express-openid-connect'
-const { router } = require('./router');
 const cors = require('cors');
 require("dotenv").config();
+import express from 'express';
+const helmet = require("helmet");
+const nocache = require("nocache");
+import { automateImages } from './utils/automateAvatars';
+import { userRouter } from './routers/userRouter';
+import { errorHandler } from "./middleware/error.middleware";
+import { notFoundHandler } from "./middleware/not-found.middleware";
 
-const config = {
-  authRequired: false,
-  auth0Logout:true,
-  secret: process.env.AUTH0_SECRET || 'averydifficultpassword',
-  baseURL: process.env.URL || 'http://localhost:3000',
-  clientID: process.env.AUTH0_CLIENT_ID,
-  issuerBaseURL: process.env.AUTH0_DOMAIN
-}
+const app = express();
 
-//cors
-const corsConfig = {
-  origin: [process.env.URL || 'http://localhost:3000', process.env.CLIENT_URL || 'http://localhost:5173', process.env.AUTH0_DOMAIN || 'https://dev-mujh303ammb4fy01.uk.auth0.com',"https://dev-mujh303ammb4fy01.uk.auth0.com/api/v2/", "https://amaze-thing-dev.com"],
-  methods: 'GET, POST, PUT, DELETE',
-  credentials: true,
-}
+app.use(express.json());
+app.use(
+  helmet({
+    hsts: {
+      maxAge: 31536000,
+    },
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: {
+        "default-src": ["'none'"],
+        "frame-ancestors": ["'none'"],
+      },
+    },
+    frameguard: {
+      action: "deny",
+    },
+  })
+);
+app.use((req, res, next) => {
+  res.contentType("application/json; charset=utf-8");
+  next();
+});
+app.use(nocache());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    methods: ["GET"],
+    allowedHeaders: ["Authorization", "Content-Type"],
+    maxAge: 86400,
+  })
+);
+app.use(userRouter);
+app.use(errorHandler);
+app.use(notFoundHandler);
 
-const app = Express();
-// auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config))
-app.use(Express.json());
-app.use(cors(corsConfig));
-app.use(router);
 
 //Upload Avatar images to collection
 automateImages();
