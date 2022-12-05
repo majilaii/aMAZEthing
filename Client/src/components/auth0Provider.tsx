@@ -12,10 +12,6 @@ const Auth0ProviderWithHistory = (props:any) => {
     navigate(appState?.returnTo || window.location.pathname);
   };
 
-  // if (!(domain && clientId)) {
-  //   return null;
-  // }
-
   return (
     <Auth0Provider
       domain={"dev-mujh303ammb4fy01.uk.auth0.com"} //TODO add to .env file(auth0 joseph's domain)

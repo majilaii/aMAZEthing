@@ -1,10 +1,15 @@
-import { bFS, dFS, dFSShortest } from "./path-finding-algo";
+import { aStar, bFS, dFS, dFSShortest, distance, distanceConstruct, vBFS, vDFS, vDijk } from "./path-finding-algo";
 
 export type value = string | number;
 
 export class Graph {
   vertices: value[] = []; // ! Vertices must be unique
   edges: [value, value, number][] = []; 
+  
+  reAssign(graph:Graph){
+    Object.assign(this, graph)
+
+  }
 
   addVertex (value: value) {
     if (!this.vertices.includes(value)) {
@@ -14,7 +19,7 @@ export class Graph {
     return false;
   }
 
-  addEdge (valueX: value, valueY: value, directed = false, weight = 1) {
+  addEdge (valueX: value, valueY: value, weight:number = 1, directed = false) {
     if (!this.vertices.includes(valueX) || !this.vertices.includes(valueY)) return false;
     if (this.edges.some(edge => edge[0] === valueX && edge[1] === valueY && edge[2] === weight)) return false;
     this.edges.push([valueX, valueY, weight]);
@@ -54,13 +59,16 @@ export class Graph {
     return out;
   }
 
-
+  removeUnweightedEdges(){
+    for(let edge of this.edges){
+      if(edge[2]===0) this.removeEdge(edge[0],edge[1]);
+    }
+  }
 
   isConnected () {
     for (let vertex1 of this.vertices) {
       for (let vertex2 of this.vertices) {
         if (!this.findPath(vertex1, vertex2)) {
-          // console.log(vertex1, vertex2);
           return false;
         }
       }
@@ -68,8 +76,7 @@ export class Graph {
     return true;
   }
 
-  findPath (valueX: value, valueY: value, method = 'dfs') {
-    console.log('Choosing path');
+  findPath (valueX: value, valueY: value, method = 'dfs', width:any =10, heuristicValue:number = 10) {
     if (!this.vertices.includes(valueX) || !this.vertices.includes(valueY)) return false;
     let path;
     if (valueX === valueY) return true;
@@ -80,8 +87,19 @@ export class Graph {
     case 'dfsShort':
       path = dFSShortest(valueX, valueY, this);
       break;
+    case 'vbfs':
+      path = vBFS(valueX,valueY,this);
+      break;
+    case 'vdfs':
+      path = vDFS(valueX,valueY,this);
+      break;
+    case 'vdijk':
+      path = vDijk(valueX as number,valueY as number,this)
+      break;
+    case 'aStar':
+      path = aStar(valueX as number,valueY as number,this, distanceConstruct(width), heuristicValue)
+      break;
     default:
-      console.log('dfs');
       path = dFS(valueX, valueY, this);
       break;
     }

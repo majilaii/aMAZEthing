@@ -8,30 +8,19 @@ interface UserState{ //shape of the state inside inside of the slice
         losses:number,
         draws:number
     },
-    pathFindPath:number,
-    sortingPath:number,
-    avatar:{
-        data:{
-            data:number[]
-        },
-        contentType:string;
-    },
+    totalGold: number,
+    pathLessons:boolean[],
+    sortLessons:boolean[],
 }
 
 const initialState: UserState = {
     email: 'bruce@lee.com',
-    username: '',
+    username: 'Bruce',
     games: [],
     overallWins:{ wins:0, losses:0, draws:0},
-    pathFindPath:0,
-    sortingPath:0,
-    avatar:{
-        data:{
-            data:[]
-        },
-        contentType: "monkey.png",
-        
-    }
+    totalGold: 0,
+    pathLessons:[false, false, false, false],
+    sortLessons:[false, false, false, false, false, false],
 }
 
 const userSlice = createSlice({
@@ -43,15 +32,21 @@ const userSlice = createSlice({
             state.username = action.payload.username;
             state.games = action.payload.games;
             state.overallWins = action.payload.overallWins;
-            state.pathFindPath = action.payload.pathFindPath;
-            state.sortingPath = action.payload.sortingPath;
-            state.avatar = action.payload.avatar;
+            state.sortLessons = action.payload.sortLessons;
+            state.pathLessons = action.payload.pathLessons;
+            state.totalGold = action.payload.totalGold;
         },
-        refreshDataNoAvatar(state,action:PayloadAction<UserState>){
+        refreshUsername(state,action:PayloadAction<UserState>){
             state.username = action.payload.username;
+        },
+        refreshSortingPath(state, action: PayloadAction<UserState>){
+            state.sortLessons = action.payload.sortLessons
+        },
+        refreshPathLessons(state, action: PayloadAction<UserState>){
+            state.pathLessons = action.payload.pathLessons
         }
     }
 })
 
-export const{ refreshData, refreshDataNoAvatar } = userSlice.actions;
+export const { refreshData, refreshUsername, refreshSortingPath, refreshPathLessons } = userSlice.actions;
 export default userSlice.reducer;

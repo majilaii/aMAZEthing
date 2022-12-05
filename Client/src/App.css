@@ -1,35 +1,45 @@
 * {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-    line-height: 1.5;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  line-height: 1.5;
+  scroll-behavior: smooth;
 }
 
 :root {
-    --main-green: #1B432E;
-    --dark-green: #043A25;
-    --white-green: #B4C6BC;
-    --red: #c1121f;
-    --yellow: #ffb703;
-    --dark-brown: #3C2923;
-    --white: #ffff;
+  --main-grey: rgb(126, 134, 133);
+  --light-grey: #dbdbdb;
+  --even-lighter-grey: #e8e8e8;
+  --sort-green: #2c5d44;
+  --main-green: #1B432E;
+  --main-green-transparent: #1B432E77;
+  --dark-green: #043A25;
+  --white-green: #B4C6BC;
+  --white-green-hover: #96B0A2;
+  --red: #c1121f;
+  --yellow: #ffb703;
+  --dark-brown: #3C2923;
+  --white: #ffff;
+  --purple: #323356;
+  --sand: #E6CCB2;
+  --black-transparent: #00000077;
 }
 
 body {
-    background-color: var(--main-green);
+  background-color: var(--main-green);
 }
 
-h1, h2, h3, button {
-    font-family: 'Staatliches', cursive;
-    font-weight: 100;
-    color: var( --white-green);
+h1, h2, h3, h4, button {
+  font-family: 'Staatliches', cursive;
+  font-weight: 100;
+  color: var( --white-green);
 }
 
 button:hover{
-    color: var(--white)
+  color: var(--yellow)
 }
 
 .outlet {
-    position: relative;
-    top: 10vh
+  position: relative;
+  top: 10vh
 }

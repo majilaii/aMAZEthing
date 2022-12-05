@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["cypress", "node"],
     "jsx": "react",
     "module": "commonjs",                                /* Specify what module code is generated. */
     "outDir": "build",

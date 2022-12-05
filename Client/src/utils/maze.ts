@@ -1,25 +1,84 @@
 import { Graph, value } from "./graph";
 
-export function generateConnectedGraph(width: number, height: number) {
+export function generateConnectedGraph(width: number, height: number, weightedGraph:boolean = false) {
   const nodeNum = width * height;
   
   const connectedGraph = new Graph();
   for (let i = 0; i < nodeNum; i++) {
     connectedGraph.addVertex(i);
   }
-
-  for (let i = 0; i < nodeNum; i++) {
-    if (i > width) connectedGraph.addEdge(i, i - width);
-    if (i < nodeNum - width) connectedGraph.addEdge(i, i + width);
-    if (i%width > 0) connectedGraph.addEdge(i, i - 1);
-    if (i%width < width - 1) connectedGraph.addEdge(i, i + 1);
+  if(!weightedGraph){
+    for (let i = 0; i < nodeNum; i++) {
+      if (i > width) connectedGraph.addEdge(i, i - width);
+      if (i < nodeNum - width) connectedGraph.addEdge(i, i + width);
+      if (i%width > 0) connectedGraph.addEdge(i, i - 1);
+      if (i%width < width - 1) connectedGraph.addEdge(i, i + 1);
+    }
+  } else {
+    let rand:number;
+    for (let i = 0; i < nodeNum; i++) {
+      rand = Math.floor(Math.random()*4);
+      if (i > width && !connectedGraph.getEdgeValue(i, i-width) && rand) connectedGraph.addEdge(i, i - width,rand);
+      rand = Math.floor(Math.random()*4);
+      if (i < nodeNum - width && !connectedGraph.getEdgeValue(i, i+width) && rand) connectedGraph.addEdge(i, i + width,rand);
+      rand = Math.floor(Math.random()*4);
+      if (i%width > 0 && !connectedGraph.getEdgeValue(i, i-1) && rand) connectedGraph.addEdge(i, i - 1,rand);
+      rand = Math.floor(Math.random()*4);
+      if (i%width < width - 1 && !connectedGraph.getEdgeValue(i, i+1) && rand) connectedGraph.addEdge(i, i + 1,rand);
+    }
   }
-
   return connectedGraph;
 }
 
 export function resetGraph(graph: Graph, edges: [value, value, number][]) {
   // TODO: reset
+}
+
+function addTowers(width:number, height:number, graph: Graph) {
+  const midW = Math.floor(width/2);
+  const midH = Math.floor(height/2);
+  const towers: number[] = [midW + midH*width];
+  const nTowers = 6;
+  // let radius = Math.floor(Math.min(width, height)/3);
+  for (let i = 0; i < nTowers; i++) {
+    towers.push(midW + Math.floor((width/3)*Math.sin(2*i*Math.PI/nTowers)) + width*(midH + Math.floor((height/3)*Math.cos(2*i*Math.PI/nTowers))))
+  }
+  for (let tower of towers) {
+    graph.removeVertex(tower - 1);
+    graph.removeVertex(tower + 1);
+    graph.removeVertex(tower - width);
+    graph.removeVertex(tower - width - 1);
+    graph.removeVertex(tower - width + 1);
+    graph.removeVertex(tower - 2*width);
+    graph.removeVertex(tower - 2*width - 1);
+    graph.removeVertex(tower - 2*width + 1);
+  }
+  return towers;
+}
+
+function addBases(width: number, height: number, graph: Graph) {
+  graph.removeVertex(0);
+  graph.removeVertex(1);
+  graph.removeVertex(2);
+  graph.removeVertex(width);
+  graph.removeVertex(width + 1);
+  graph.removeVertex(width + 2);
+  graph.removeVertex(2 * width);
+  graph.removeVertex(2 * width + 1);
+  graph.removeVertex(2 * width + 2);
+  
+  let last = width*height - 1;
+
+  graph.removeVertex(last);
+  graph.removeVertex(last - 1);
+  graph.removeVertex(last - 2);
+  graph.removeVertex(last - width);
+  graph.removeVertex(last - width - 1);
+  graph.removeVertex(last - width - 2);
+  graph.removeVertex(last - 2 * width);
+  graph.removeVertex(last - 2 * width - 1);
+  graph.removeVertex(last - 2 * width - 2);
+
 }
 
 export function generateMaze(width: number, height: number, graph: Graph | false = false) {
@@ -28,9 +87,11 @@ export function generateMaze(width: number, height: number, graph: Graph | false
   }
   const nodeNum = width * height;
   const classes: {[key: value]: ('b'|'t'|'r'|'l')[]} = {};
-  const visited:value[] = [0];
-  const stack:value[] = [0];
+  const visited:value[] = [3*width];
+  const stack:value[] = [3*width];
   const edges: [value, value, number][] = [];
+  const towers: number[] = addTowers(width, height, graph);
+  addBases(width, height, graph);
   while(stack.length) {
     let i = stack.pop() as number;
     let neighbors = graph.neighbors(i).filter(neighbor => !visited.includes(neighbor));
@@ -81,8 +142,21 @@ export function generateMaze(width: number, height: number, graph: Graph | false
     }
   }
   graph.edges = edges;
-  for (let j = 0; j < width; j++) {
+  function conflictWithTowers(towers: number[], num: number) {
+    for (let tower of towers) {
+      if (num >= tower - 2 && num <= tower + 2) return true;
+      if (num >= tower + width - 2 && num <= tower + width + 2) return true;
+      if (num >= tower - width - 2 && num <= tower - width + 2) return true;
+      if (num >= tower - 2*width - 2 && num <= tower - 2*width + 2) return true;
+      if (num >= tower - 3*width - 2 && num <= tower - 3*width + 2) return true;
+    }
+    return false;
+  }
+  for (let j = 0; j < 3*width; j++) {
     let i = Math.floor(Math.random()*nodeNum);
+    while(conflictWithTowers(towers, i)) {
+      i = Math.floor(Math.random()*nodeNum);
+    }
     if (i > width) {
       graph.addEdge(i, i - width);
       if (classes[i]) {
@@ -131,6 +205,7 @@ export function generateMaze(width: number, height: number, graph: Graph | false
   return {
     graph,
     visited,
-    classes
+    classes,
+    towers
   }
 }

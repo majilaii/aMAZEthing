@@ -1,14 +1,18 @@
 const cors = require('cors');
 require("dotenv").config();
 import express from 'express';
+import http from 'http';
 const helmet = require("helmet");
 const nocache = require("nocache");
-import { automateImages } from './utils/automateAvatars';
 import { userRouter } from './routers/userRouter';
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/not-found.middleware";
+import Connect from './socket';
 
 const app = express();
+
+const server = http.createServer(app);
+Connect(server);
 
 app.use(express.json());
 app.use(
@@ -46,9 +50,7 @@ app.use(errorHandler);
 app.use(notFoundHandler);
 
 
-//Upload Avatar images to collection
-automateImages();
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
