@@ -37,10 +37,11 @@ app.use((req, res, next) => {
   next();
 });
 app.use(nocache());
+console.log(process.env.CLIENT_URL, 'here')
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
-    methods: ["GET"],
+    methods: ["GET", "POST"],
     allowedHeaders: ["Authorization", "Content-Type"],
     maxAge: 86400,
   })
