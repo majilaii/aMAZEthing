@@ -15,10 +15,10 @@ const Auth0ProviderWithHistory = (props:any) => {
   return (
     <Auth0Provider
       domain={"dev-mujh303ammb4fy01.uk.auth0.com"} //TODO add to .env file(auth0 joseph's domain)
-      clientId={"O94ycBixGyrF1fRoyebadt9aJf7MzyRA"} //TODO add to .env file(auth0 joseph's clientID)
-      redirectUri={"http://localhost:5173/callback"}
+      clientId={"lVp1cabYznnxW14RgDEUUCnGwYnD5Jdq"} //TODO add to .env file(auth0 joseph's clientID)
+      redirectUri={"https://jjamazething.netlify.app/callback"}
       onRedirectCallback={onRedirectCallback}
-      audience={"https://amaze-thing-dev.com"}
+      audience={"https://amaze-thing-production.com"}
     >
      {props.children}
     </Auth0Provider>

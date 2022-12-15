@@ -1,7 +1,7 @@
 import { store } from "../features/store";
 import { generateMaze } from "../utils/maze";
 
-const BASE_URL = 'http://localhost:3000'; //TODO Add to .env
+const BASE_URL = 'https://amazething.fly.dev'; //TODO Add to .env
 
 const profile = function (accessToken:any,user:any) {
   return fetch(`${BASE_URL}/profile`, {
