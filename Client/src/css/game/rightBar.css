@@ -1,0 +1,116 @@
+.right-bar {
+  width: 10vw;
+  font-size: 20px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-direction: column;
+  /* height: max-content; */
+  flex-direction: column;
+  margin-top: -13vh;
+  min-width: 150px;
+  height: 90vh;
+}
+
+.your-animals-sign {
+  color: var(--yellow);
+  text-align: center;
+  /* position: fixed; */
+  font-size: 26px;
+  /* margin-left: auto; */
+  padding-top: 10vh;
+}
+
+.store-button {
+  width: 94%;
+  background-color: transparent;
+  border: none;
+  border-radius: 0 0 15px 15px;
+  /* padding-top: 1vh; */
+}
+
+.shopSVG {
+  width: 80%;
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.your-minions-list {
+  height: 66vh;
+  overflow-y: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 1vh
+}
+
+.right-bar-name {
+  font-size: 30px;
+  text-align: center;
+}
+
+.right-just-text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.your-minion-button {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 15px;
+  margin-bottom: 5px;
+}
+
+.your-minion-button:hover {
+  border: 3px solid var(--yellow);
+  border-radius: 15px;
+}
+
+.open-shop-arrow {
+  margin-top: 50vh;
+}
+
+.cross-size {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* width */
+.your-minions-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.your-minions-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle */
+.your-minions-list::-webkit-scrollbar-thumb {
+  background: var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.your-minions-list::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}
+
+.right-bar-selected-animal {
+  border-color: var(--yellow);
+  background-color: var(--purple);
+}
+
+.right-bar-selected-animal .right-bar-name {
+  color: var(--yellow);
+}
+
+.right-bar-selected-animal:hover {
+  border-color: var(--yellow);
+}

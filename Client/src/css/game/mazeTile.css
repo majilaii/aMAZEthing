@@ -1,0 +1,99 @@
+.b {
+  background-image: url(../../assets/tiles/b.svg);
+
+}
+
+.t {
+  background-image: url(../../assets/tiles/t.svg);
+
+}
+
+.l {
+  background-image: url(../../assets/tiles/l.svg);
+
+}
+
+
+.r {
+  background-image: url(../../assets/tiles/r.svg);
+
+}
+
+.l.t {
+  background-image: url(../../assets/tiles/lt.svg);
+
+}
+
+
+.r.t {
+  background-image: url(../../assets/tiles/rt.svg);
+
+}
+
+
+.b.t {
+  background-image: url(../../assets/tiles/bt.svg);
+
+}
+
+
+.b.l {
+  background-image: url(../../assets/tiles/bl.svg);
+
+}
+
+
+.b.r {
+  background-image: url(../../assets/tiles/br.svg);
+
+}
+
+.l.r {
+  background-image: url(../../assets/tiles/lr.svg);
+
+}
+
+.b.r.t {
+  background-image: url(../../assets/tiles/brt.svg);
+
+}
+
+
+.b.l.t {
+  background-image: url(../../assets/tiles/blt.svg);
+
+}
+
+.l.r.t {
+  background-image: url(../../assets/tiles/lrt.svg);
+
+}
+
+.b.l.r {
+  background-image: url(../../assets/tiles/blr.svg);
+
+}
+
+.b.l.r.t {
+  background-image: url(../../assets/tiles/blrt.svg);
+
+}
+
+.showNone {
+  background-image: none !important;
+}
+
+.mazeTile {
+  position: relative;
+}
+
+.thoughtProcess::after {
+  height: inherit;
+  width: inherit;
+  top: 0;
+  left: 0;
+  content: '';
+  background-color: blue;
+  opacity: 0.5;
+  z-index: 5;
+}
