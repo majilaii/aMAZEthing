@@ -11,7 +11,7 @@ kill_timeout = 5
   CLIENT_URL = "https://chipper-kataifi-8ab766.netlify.app"
   AUTH0_AUDIENCE = "https://amaze-thing-production.com"
   AUTH0_DOMAIN = "dev-mujh303ammb4fy01.uk.auth0.com"
-  AUTH0_CLIENT_ID = "2JiiMLOohavF2KM9GnGk4mQ304H0LsJe"
+  AUTH0_CLIENT_ID = "lVp1cabYznnxW14RgDEUUCnGwYnD5Jdq"
   DB_URL = "mongodb+srv://admin:123@amazething.debp4ns.mongodb.net/?retryWrites=true&w=majority"
   DB_PORT = "27017"
   DB_NAME = 'amazething'
