@@ -22,14 +22,6 @@ export default function BubbleLesson() {
     "The above process goes on until all sorted",
   ];
 
-  let psuedoCode = [
-    "bubbleSort(array)",
-    "for i <- 1 to indexOfLastUnsortedElement-1",
-    " if leftElement > rightElement",
-    "swap leftElement and rightElement",
-    "end bubbleSort",
-  ];
-
   const WIDTH = 27;
   const MIN_VAL = 7;
   const MAX_VAL = 50;

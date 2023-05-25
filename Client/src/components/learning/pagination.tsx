@@ -22,7 +22,7 @@ function Pagination({
       <div className="pagination-left">
         <button
         disabled={clicked}
-          className="scroll-learning"
+        className={clicked ? "scroll-learning disabled" : "scroll-learning"}
           onClick={() => {
             navigate(`/${leftLink}`)
              }}

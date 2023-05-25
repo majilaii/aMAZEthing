@@ -68,6 +68,7 @@ function CurveSort() {
         email: user.email,
         sortArr: sortArray,
       });
+      console.log(obj.user)
       if (obj.user) dispatch(refreshSortingPath(obj.user));
     } catch (err) {
       console.log(err);

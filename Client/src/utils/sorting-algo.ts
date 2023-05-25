@@ -166,45 +166,31 @@ function mergeNowDesc(arr:any, aux:any, mid:any, left:any, right:any, animations
   let j = mid + 1;
   let k = left
   while (i <= mid && j <= right) {
-    // These are the values that we're comparing; we push them once
-    // to change their color.
     animations.push([i, j]);
-    // These are the values that we're comparing; we push them a second
-    // time to revert their color.
     animations.push([i, j]);
     if (aux[i] >= aux[j]) {
-      // We overwrite the value at index k in the original array with the
-      // value at index i in the auxiliary array.
       animations.push([k, aux[i]]);
       arr[k++] = aux[i++];
     } else {
-      // We overwrite the value at index k in the original array with the
-      // value at index j in the auxiliary array.
       animations.push([k, aux[j]]);
       arr[k++] = aux[j++];
     }
   }
   while (i <= mid) {
-    // These are the values that we're comparing; we push them once
-    // to change their color.
+  
     animations.push([i, i]);
-    // These are the values that we're comparing; we push them a second
-    // time to revert their color.
+   
     animations.push([i, i]);
-    // We overwrite the value at index k in the original array with the
-    // value at index i in the auxiliary array.
+   
     animations.push([k, aux[i]]);
     arr[k++] = aux[i++];
   }
   while (j <= right) {
-    // These are the values that we're comparing; we push them once
-    // to change their color.
+  
     animations.push([j, j]);
-    // These are the values that we're comparing; we push them a second
-    // time to revert their color.
+   
     animations.push([j, j]);
-    // We overwrite the value at index k in the original array with the
-    // value at index j in the auxiliary array.
+   
     animations.push([k, aux[j]]);
     arr[k++] = aux[j++];
   }
@@ -212,7 +198,7 @@ function mergeNowDesc(arr:any, aux:any, mid:any, left:any, right:any, animations
 
 export function quickSortAlgo(arr:number[], ASC_MODE:boolean) {
   const animations:any = []
-   quickSortHelper(arr, 0, arr.length-1, animations, ASC_MODE)
+  quickSortHelper(arr, 0, arr.length-1, animations, ASC_MODE)
   return animations
 }
 
@@ -266,38 +252,3 @@ function swap(arr:number[], i:number, j:number) {
   arr[i] = arr[j];
   arr[j] = temp;
 }
-
-
-
-// export default function bogoSortAlgo(arr:number[], arrLength:number) {
-//   let animations = []
-//   while(!isSorted(arr, arrLength)) {
-//     arr = shuffle(arr, arrLength)
-//   }
-//   return animations
-// }
-
-// function isSorted(arr:number[], arrLength:number) {
-//   for(let i = 0; i<arr.length; i++) {
-//     if(arr[i] > arr[i+1]) {
-//       return false
-//     }
-//   }
-
-//   return true
-// }
-
-// function shuffle(arr:number[], arrLength:number){
-//   let i, j=arrLength;
-//   for (i=0; i < arrLength; i++){
-//       const index = Math.floor(Math.random() * arrLength);
-//       swap(arr, j-i-1, index);
-//   }
-//   return arr;
-// }
-
-
-// const arr = [3,1, 6]
-// const length = arr.length
-
-// console.log(bogoSortAlgo(arr, length))

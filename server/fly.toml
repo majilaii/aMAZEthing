@@ -1,14 +1,14 @@
-# fly.toml file generated for amazething on 2022-12-15T13:46:38Z
+# fly.toml file generated for jjtactictoe on 2022-12-12T16:20:01Z
 
 app = "amazething"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
+##processes = []
 
 [env]
   PORT = "8080"
-  URL = "https://amazething.fly.dev"
-  CLIENT_URL = "https://jjamazething.netlify.app"
+  URL = "https://billowing-field-2152.fly.dev"
+  CLIENT_URL = "https://chipper-kataifi-8ab766.netlify.app"
   AUTH0_AUDIENCE = "https://amaze-thing-production.com"
   AUTH0_DOMAIN = "dev-mujh303ammb4fy01.uk.auth0.com"
   AUTH0_CLIENT_ID = "2JiiMLOohavF2KM9GnGk4mQ304H0LsJe"
@@ -23,7 +23,7 @@ processes = []
 [[services]]
   http_checks = []
   internal_port = 8080
-  processes = ["app"]
+  ##processes = ["app"]
   protocol = "tcp"
   script_checks = []
   [services.concurrency]

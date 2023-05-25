@@ -38,18 +38,14 @@ export default function Visualization({
   setASCbuttonChange?: (value: boolean | ((prevVar: boolean) => boolean)) => void
 }
 ) {
-
     const dispatch = useAppDispatch();  
-
-
     if(clicked) {
       if (tower) dispatch(increaseTowersSorting(tower));
         sortingAlgo(animations, delay, width, margin, tower, height, () => {
           setClicked(false) 
           setIsSorted?.(true)
           setASCbuttonChange?.(false)
-        },
-          )
+        })
     }
 
     return(

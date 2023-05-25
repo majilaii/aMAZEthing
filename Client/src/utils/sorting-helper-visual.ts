@@ -107,6 +107,7 @@ export async function selectionSortVisual(animations:number[][], DELAY_MS:number
 
   export async function mergeSortVisual(animations:any, DELAY_MS:number, width:number, margin:number, tower: string = '', height: number ,  cb?: () => void) {
     const arrayBars = document.getElementsByClassName(`array-el${tower}`);
+    console.log(animations)
     for ( let i = 0, len = animations.length; i < len; i++ ){
       await delay(DELAY_MS)
       const isColorChange = i % 3 !== 2;
@@ -124,7 +125,6 @@ export async function selectionSortVisual(animations:number[][], DELAY_MS:number
         await delay(DELAY_MS)
         barOne.style.height = `${newHeight*height}px`;
         await delay(0)
-
         barOne.textContent = newHeight
     }
   }
