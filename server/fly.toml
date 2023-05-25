@@ -7,7 +7,7 @@ kill_timeout = 5
 
 [env]
   PORT = "8080"
-  URL = "https://billowing-field-2152.fly.dev"
+  URL = "https://amazething.fly.dev"
   CLIENT_URL = "https://chipper-kataifi-8ab766.netlify.app"
   AUTH0_AUDIENCE = "https://amaze-thing-production.com"
   AUTH0_DOMAIN = "dev-mujh303ammb4fy01.uk.auth0.com"
